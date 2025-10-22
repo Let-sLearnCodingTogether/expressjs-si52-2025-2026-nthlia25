@@ -1,5 +1,6 @@
 import passport from "passport";
 import {ExtractJwt, Strategy} from "passport-jwt"
+import UserModel from "../models/userModel.js";
 
 const opts = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -10,7 +11,7 @@ passport.use(
     new Strategy(opts, async (payload, done) => {
         try{
             // melakukan query kedalam model user berdasarkan email
-            const user = await UserModel.findById({
+            const user = await UserModel.findOne({
                 email : payload.email
             })
 
